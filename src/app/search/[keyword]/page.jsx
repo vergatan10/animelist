@@ -3,6 +3,9 @@ import Header from "@/components/AnimeList/Header";
 
 const Page = async ({ params }) => {
   const { keyword } = params;
+
+  const decodedKeyword = decodeURI(keyword);
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BSAE_URL}/anime?q=${keyword}`
   );
@@ -12,7 +15,7 @@ const Page = async ({ params }) => {
     <>
       <section>
         <Header
-          title={`Pencarian untuk ${keyword}...`}
+          title={`Pencarian untuk ${decodedKeyword}...`}
           // linkTitle="Lihat Semua"
           // linkHref="/populer"
         />
