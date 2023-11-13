@@ -3,6 +3,7 @@
 import HeaderMenu from "@/Utilities/HeaderMenu";
 import Pagination from "@/Utilities/Pagination";
 import AnimeList from "@/components/AnimeList";
+import { getAnimeResponse } from "@/libs/api-libs";
 import { useEffect, useState } from "react";
 
 const Page = () => {
@@ -10,11 +11,8 @@ const Page = () => {
   const [topAnime, setTopAnime] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BSAE_URL}/top/anime?page=${page}`
-    );
-    const data = await response.json();
-    setTopAnime(data);
+    const pupulerAnime = await getAnimeResponse("top/anime", `page=${page}`);
+    setTopAnime(pupulerAnime);
   };
 
   useEffect(() => {
