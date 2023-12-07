@@ -1,0 +1,24 @@
+import prisma from "@/libs/prisma";
+
+const CommentBox = async ({ anime_mal_id }) => {
+  const comments = await prisma.comment.findMany({
+    where: { anime_mal_id },
+  });
+  return (
+    <div className="grid grid-cols-4 gap-4 mb-4">
+      {comments.map((comment) => {
+        return (
+          <div
+            key={comment.id}
+            className="p-4 bg-color-primary border-2 border-color-accent rounded-md"
+          >
+            <p className="font-semibold">{comment.username}</p>
+            <p>{comment.comment}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default CommentBox;

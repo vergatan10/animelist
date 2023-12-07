@@ -1,4 +1,6 @@
 import CollectionButton from "@/components/AnimeList/CollectionButton";
+import CommentBox from "@/components/AnimeList/CommentBox";
+import CommentInput from "@/components/AnimeList/CommentInput";
 import VideoPlayer from "@/components/Utilities/VideoPlayer";
 import { getAnimeResponse } from "@/libs/api-libs";
 import { authUserSession } from "@/libs/auth-libs";
@@ -20,7 +22,12 @@ const Page = async ({ params: { id } }) => {
           {anime.data.title} - {anime.data.year}
         </h3>
         {!collection && user && (
-          <CollectionButton anime_mal_id={id} user_email={user?.email} />
+          <CollectionButton
+            anime_mal_id={id}
+            user_email={user?.email}
+            anime_image={anime.data.images.jpg.image_url}
+            anime_title={anime.data.title}
+          />
         )}
       </div>
       <div className="pt-4 px-4 flex gap-2 text-color-primary overflow-x-auto">
@@ -51,6 +58,22 @@ const Page = async ({ params: { id } }) => {
         />
         <p className="text-justify text-xl">{anime.data.synopsis}</p>
       </div>
+
+      <div className="p-4">
+        <h3 className="text-color-primary text-2xl font-bold mb-2">
+          Komentar Penonton
+        </h3>
+        <CommentBox anime_mal_id={id} />
+        {user && (
+          <CommentInput
+            anime_mal_id={id}
+            user_email={user?.email}
+            username={user?.name}
+            anime_title={anime.data.title}
+          />
+        )}
+      </div>
+
       <div>
         <VideoPlayer youtubeId={anime.data.trailer.youtube_id} />
       </div>
